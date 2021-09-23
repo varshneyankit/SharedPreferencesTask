@@ -34,9 +34,7 @@ class RegistrationFragment : Fragment() {
         (activity as AppCompatActivity?)!!.setSupportActionBar(binding.registrationToolbar)
         (activity as AppCompatActivity?)!!.supportActionBar?.title = "Registration"
         preferencesConfig = SharedPreferencesConfig(requireContext())
-        if (!preferencesConfig.readName().equals("No Name") || !preferencesConfig.readAddress()
-                .equals("No Address")
-        )
+        if (preferencesConfig.readLoginInStatus())
             navigateToProfile()
         nameEditText = binding.registrationNameEditText
         addressEditText = binding.registrationAddressEditText
@@ -85,6 +83,7 @@ class RegistrationFragment : Fragment() {
         preferencesConfig.writeName(name)
         preferencesConfig.writeAddress(address)
         preferencesConfig.writeCreationTime(System.currentTimeMillis())
+        preferencesConfig.writeLoginInStatus(true)
         Toast.makeText(context, "Profile successfully registered !", Toast.LENGTH_SHORT).show()
         navigateToProfile()
 

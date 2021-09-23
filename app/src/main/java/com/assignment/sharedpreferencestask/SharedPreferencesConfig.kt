@@ -16,7 +16,7 @@ class SharedPreferencesConfig(private val context: Context) {
     }
 
     fun readName(): String? {
-        return sharedPreferences.getString("name", "No name")
+        return sharedPreferences.getString("name", "Null")
     }
 
     fun writeAddress(address: String) {
@@ -26,7 +26,7 @@ class SharedPreferencesConfig(private val context: Context) {
     }
 
     fun readAddress(): String? {
-        return sharedPreferences.getString("address", "No address")
+        return sharedPreferences.getString("address", "Null")
     }
 
     fun writeAge(age: Int) {
@@ -47,5 +47,15 @@ class SharedPreferencesConfig(private val context: Context) {
 
     fun readCreationTime(): Long {
         return sharedPreferences.getLong("creation_time", 0)
+    }
+
+    fun writeLoginInStatus(status: Boolean) {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("login_in_status", status)
+        editor.apply()
+    }
+
+    fun readLoginInStatus(): Boolean {
+        return sharedPreferences.getBoolean("login_in_status", false)
     }
 }
