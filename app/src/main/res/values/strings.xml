@@ -13,4 +13,7 @@
     <string name="registration_hint_address">Address</string>
     <string name="registration_hint_age">Age (in years)</string>
     <string name="registration_button_text">Register</string>
+    <string name="registration_hint_creation_time">Created X sec/min/hr/days ago</string>
+    <string name="registration_toolbar_title">Registration</string>
+    <string name="profile_toolbar_title">Profile</string>
 </resources>

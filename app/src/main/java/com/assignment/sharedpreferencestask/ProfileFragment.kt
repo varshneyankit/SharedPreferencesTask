@@ -22,17 +22,15 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity?)!!.setSupportActionBar(binding.profileToolbar)
-        (activity as AppCompatActivity?)!!.supportActionBar?.title = "Profile"
+        val supportActionBar = (activity as AppCompatActivity?)!!.supportActionBar
+        supportActionBar?.title = R.string.profile_toolbar_title.toString()
         preferencesConfig = SharedPreferencesConfig(requireContext())
         nameTextView = binding.profileNameText
         addressTextView = binding.profileAddressText
@@ -53,10 +51,10 @@ class ProfileFragment : Fragment() {
             var timeString = ""
             when {
                 timeInSeconds<60 -> timeString = "Created $timeInSeconds seconds ago"
-                timeInMinutes>=1 && timeInMinutes<60 -> timeString = "Created $timeInMinutes min ${timeInSeconds-timeInMinutes*60} sec ago"
-                timeInHours>=1 && timeInHours<60 -> timeString = "Created $timeInHours hr ${timeInMinutes-timeInHours*60} min ago"
-                timeInDays>=1 && timeInDays < 30 -> timeString = "Created $timeInDays days ${timeInHours-timeInDays*24} ago"
-                timeInMonths>=1 && timeInMonths <12 -> timeString = "Created $timeInMonths months ago"
+                timeInMinutes in 1..59 -> timeString = "Created $timeInMinutes min ${timeInSeconds-timeInMinutes*60} sec ago"
+                timeInHours in 1..59 -> timeString = "Created $timeInHours hr ${timeInMinutes-timeInHours*60} min ago"
+                timeInDays in 1..29 -> timeString = "Created $timeInDays days ${timeInHours-timeInDays*24} ago"
+                timeInMonths in 1..11 -> timeString = "Created $timeInMonths months ago"
                 timeInYears>=1 -> timeString = "Created $timeInYears years ago"
             }
             profileCreationTime.text = timeString
