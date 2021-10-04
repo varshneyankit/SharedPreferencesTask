@@ -3,59 +3,62 @@ package com.assignment.sharedpreferencestask
 import android.content.Context
 import android.content.SharedPreferences
 
-class SharedPreferencesConfig(private val context: Context) {
+class SharedPreferencesConfig(
+    context: Context,
+    private val sharedPreferencesHelper: SharedPreferencesHelper = SharedPreferencesHelper()
+) {
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences(
-        "com.assignment.sharedpreferencestask.Data_preferences",
+        sharedPreferencesHelper.preferencesName,
         Context.MODE_PRIVATE
     )
 
     fun writeName(name: String) {
         val editor = sharedPreferences.edit()
-        editor.putString("name", name)
+        editor.putString(sharedPreferencesHelper.nameKey, name)
         editor.apply()
     }
 
     fun readName(): String? {
-        return sharedPreferences.getString("name", "Null")
+        return sharedPreferences.getString(sharedPreferencesHelper.nameKey, "")
     }
 
     fun writeAddress(address: String) {
         val editor = sharedPreferences.edit()
-        editor.putString("address", address)
+        editor.putString(sharedPreferencesHelper.addressKey, address)
         editor.apply()
     }
 
     fun readAddress(): String? {
-        return sharedPreferences.getString("address", "Null")
+        return sharedPreferences.getString(sharedPreferencesHelper.addressKey, "")
     }
 
     fun writeAge(age: Int) {
         val editor = sharedPreferences.edit()
-        editor.putInt("age", age)
+        editor.putInt(sharedPreferencesHelper.ageKey, age)
         editor.apply()
     }
 
     fun readAge(): Int {
-        return sharedPreferences.getInt("age", 0)
+        return sharedPreferences.getInt(sharedPreferencesHelper.ageKey, 0)
     }
 
     fun writeCreationTime(timeInMillis: Long) {
         val editor = sharedPreferences.edit()
-        editor.putLong("creation_time", timeInMillis)
+        editor.putLong(sharedPreferencesHelper.creationTime, timeInMillis)
         editor.apply()
     }
 
     fun readCreationTime(): Long {
-        return sharedPreferences.getLong("creation_time", 0)
+        return sharedPreferences.getLong(sharedPreferencesHelper.creationTime, 0)
     }
 
     fun writeLoginInStatus(status: Boolean) {
         val editor = sharedPreferences.edit()
-        editor.putBoolean("login_in_status", status)
+        editor.putBoolean(sharedPreferencesHelper.loginStatus, status)
         editor.apply()
     }
 
     fun readLoginInStatus(): Boolean {
-        return sharedPreferences.getBoolean("login_in_status", false)
+        return sharedPreferences.getBoolean(sharedPreferencesHelper.loginStatus, false)
     }
 }

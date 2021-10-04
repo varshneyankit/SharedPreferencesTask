@@ -29,33 +29,39 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val supportActionBar = (activity as AppCompatActivity?)!!.supportActionBar
-        supportActionBar?.title = R.string.profile_toolbar_title.toString()
+        val activity = activity as AppCompatActivity
+        activity.supportActionBar?.title = "Profile Page"
         preferencesConfig = SharedPreferencesConfig(requireContext())
         nameTextView = binding.profileNameText
         addressTextView = binding.profileAddressText
         ageTextView = binding.profileAgeText
         profileCreationTime = binding.profileCreationText
         if (preferencesConfig.readName() != null && preferencesConfig.readAddress() != null) {
-            nameTextView.text = "Name: ${preferencesConfig.readName()}"
-            addressTextView.text = "Address: ${preferencesConfig.readAddress()}"
-            ageTextView.text = "Age: ${preferencesConfig.readAge()} years"
+            nameTextView.text = getString(R.string.profile_name_text, preferencesConfig.readName())
+            addressTextView.text =
+                getString(R.string.profile_address_text, preferencesConfig.readAddress())
+            ageTextView.text = getString(R.string.profile_age_text, preferencesConfig.readAge())
             val calculatedProfileAge =
                 System.currentTimeMillis() - preferencesConfig.readCreationTime()
-            val timeInSeconds = TimeUnit.SECONDS.convert(calculatedProfileAge,TimeUnit.MILLISECONDS)
-            val timeInMinutes = TimeUnit.MINUTES.convert(calculatedProfileAge,TimeUnit.MILLISECONDS)
-            val timeInHours =  TimeUnit.HOURS.convert(calculatedProfileAge,TimeUnit.MILLISECONDS)
-            val timeInDays = TimeUnit.DAYS.convert(calculatedProfileAge,TimeUnit.MILLISECONDS)
-            val timeInMonths = timeInDays/30
-            val timeInYears = timeInMonths/12
+            val timeInSeconds =
+                TimeUnit.SECONDS.convert(calculatedProfileAge, TimeUnit.MILLISECONDS)
+            val timeInMinutes =
+                TimeUnit.MINUTES.convert(calculatedProfileAge, TimeUnit.MILLISECONDS)
+            val timeInHours = TimeUnit.HOURS.convert(calculatedProfileAge, TimeUnit.MILLISECONDS)
+            val timeInDays = TimeUnit.DAYS.convert(calculatedProfileAge, TimeUnit.MILLISECONDS)
+            val timeInMonths = timeInDays / 30
+            val timeInYears = timeInMonths / 12
             var timeString = ""
             when {
-                timeInSeconds<60 -> timeString = "Created $timeInSeconds seconds ago"
-                timeInMinutes in 1..59 -> timeString = "Created $timeInMinutes min ${timeInSeconds-timeInMinutes*60} sec ago"
-                timeInHours in 1..59 -> timeString = "Created $timeInHours hr ${timeInMinutes-timeInHours*60} min ago"
-                timeInDays in 1..29 -> timeString = "Created $timeInDays days ${timeInHours-timeInDays*24} ago"
+                timeInSeconds < 60 -> timeString = "Created $timeInSeconds seconds ago"
+                timeInMinutes in 1..59 -> timeString =
+                    "Created $timeInMinutes min ${timeInSeconds - timeInMinutes * 60} sec ago"
+                timeInHours in 1..59 -> timeString =
+                    "Created $timeInHours hr ${timeInMinutes - timeInHours * 60} min ago"
+                timeInDays in 1..29 -> timeString =
+                    "Created $timeInDays days ${timeInHours - timeInDays * 24} ago"
                 timeInMonths in 1..11 -> timeString = "Created $timeInMonths months ago"
-                timeInYears>=1 -> timeString = "Created $timeInYears years ago"
+                timeInYears >= 1 -> timeString = "Created $timeInYears years ago"
             }
             profileCreationTime.text = timeString
         }

@@ -1,15 +1,14 @@
 package com.assignment.sharedpreferencestask
 
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.assignment.sharedpreferencestask.databinding.FragmentRegistrationBinding
@@ -34,10 +33,7 @@ class RegistrationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val activity = activity as AppCompatActivity
-        activity.supportActionBar?.title="Regi"
-        Log.e("TAG", "onViewCreated: "+activity.supportActionBar)
-        //activity?.actionBar?.title= "Registration"
-//        supportActionBar?.title = "R.string.registration_toolbar_title.toString()"
+        activity.supportActionBar?.title = getString(R.string.registration_toolbar_title)
         preferencesConfig = SharedPreferencesConfig(requireContext())
         if (preferencesConfig.readLoginInStatus())
             navigateToProfile()
@@ -47,42 +43,15 @@ class RegistrationFragment : Fragment() {
         binding.registrationSubmitButton.setOnClickListener {
             onSubmitClick()
         }
-        nameEditText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                binding.registrationNameTil.isErrorEnabled = s?.isNotEmpty() != true
-
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-        })
-        addressEditText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                binding.registrationAddressTil.isErrorEnabled = s?.isNotEmpty() != true
-
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-        })
-        ageEditText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                binding.registrationAgeTil.isErrorEnabled = s?.isNotEmpty() != true
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-        })
+        nameEditText.doAfterTextChanged { text ->
+            binding.registrationNameTil.isErrorEnabled = text!!.isEmpty()
+        }
+        addressEditText.doAfterTextChanged { text ->
+            binding.registrationAddressTil.isErrorEnabled = text!!.isEmpty()
+        }
+        ageEditText.doAfterTextChanged { text ->
+            binding.registrationAgeTil.isErrorEnabled = text!!.isEmpty()
+        }
     }
 
     private fun onSubmitClick() {
@@ -106,16 +75,16 @@ class RegistrationFragment : Fragment() {
             return
         try {
             val intAge = Integer.parseInt(age)
+            preferencesConfig.writeAge(intAge)
         } catch (e: Exception) {
             Toast.makeText(
                 context,
-                "Enter valid input. \nPossible Error: " + e.message,
+                getString(R.string.enter_valid_imput_s, e.message),
                 Toast.LENGTH_SHORT
             ).show()
             Log.e("RegistrationFragment", "onSubmitClick: " + e.message)
             return
         }
-        preferencesConfig.writeAge(Integer.parseInt(age))
         preferencesConfig.writeName(name)
         preferencesConfig.writeAddress(address)
         preferencesConfig.writeCreationTime(System.currentTimeMillis())

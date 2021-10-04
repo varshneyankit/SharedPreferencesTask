@@ -16,4 +16,8 @@
     <string name="registration_hint_creation_time">Created X sec/min/hr/days ago</string>
     <string name="registration_toolbar_title">Registration</string>
     <string name="profile_toolbar_title">Profile</string>
+    <string name="enter_valid_imput_s">"Enter valid input. \nPossible Error: %s"</string>
+    <string name="profile_name_text">"Name: %s"</string>
+    <string name="profile_address_text">Address: %s</string>
+    <string name="profile_age_text">Age: %d</string>
 </resources>
