@@ -30,7 +30,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val activity = activity as AppCompatActivity
-        activity.supportActionBar?.title = "Profile Page"
+        activity.supportActionBar?.title = getString(R.string.profile_toolbar_title)
         preferencesConfig = SharedPreferencesConfig(requireContext())
         nameTextView = binding.profileNameText
         addressTextView = binding.profileAddressText
@@ -59,7 +59,7 @@ class ProfileFragment : Fragment() {
                 timeInHours in 1..59 -> timeString =
                     "Created $timeInHours hr ${timeInMinutes - timeInHours * 60} min ago"
                 timeInDays in 1..29 -> timeString =
-                    "Created $timeInDays days ${timeInHours - timeInDays * 24} ago"
+                    "Created $timeInDays days ${timeInHours - timeInDays * 24} hr ago"
                 timeInMonths in 1..11 -> timeString = "Created $timeInMonths months ago"
                 timeInYears >= 1 -> timeString = "Created $timeInYears years ago"
             }

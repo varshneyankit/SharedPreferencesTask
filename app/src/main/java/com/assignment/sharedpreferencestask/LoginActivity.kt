@@ -2,15 +2,15 @@ package com.assignment.sharedpreferencestask
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.assignment.sharedpreferencestask.databinding.ActivityMainBinding
+import com.assignment.sharedpreferencestask.databinding.ActivityLoginBinding
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 }

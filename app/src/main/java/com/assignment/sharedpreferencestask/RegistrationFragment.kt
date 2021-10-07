@@ -1,7 +1,6 @@
 package com.assignment.sharedpreferencestask
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -32,11 +31,11 @@ class RegistrationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val activity = activity as AppCompatActivity
-        activity.supportActionBar?.title = getString(R.string.registration_toolbar_title)
         preferencesConfig = SharedPreferencesConfig(requireContext())
         if (preferencesConfig.readLoginInStatus())
             navigateToProfile()
+        val activity = activity as AppCompatActivity
+        activity.supportActionBar?.title = getString(R.string.registration_toolbar_title)
         nameEditText = binding.registrationNameEditText
         addressEditText = binding.registrationAddressEditText
         ageEditText = binding.registrationAgeEditText
@@ -63,11 +62,11 @@ class RegistrationFragment : Fragment() {
         val ageTil = binding.registrationAgeTil
         val stringFields = arrayOf(name, address, age)
         for (i in stringFields.indices) {
-            if (TextUtils.isEmpty(stringFields[i]) || stringFields[i].isEmpty()) {
+            if (stringFields[i].isEmpty()) {
                 when (i) {
-                    0 -> nameTil.error = "Enter your full name"
-                    1 -> addressTil.error = "Enter your Address"
-                    2 -> ageTil.error = "Enter your Age"
+                    0 -> nameTil.error = getString(R.string.registration_empty_name)
+                    1 -> addressTil.error = getString(R.string.registration_empty_address)
+                    2 -> ageTil.error = getString(R.string.registration_empty_age)
                 }
             }
         }
@@ -89,7 +88,11 @@ class RegistrationFragment : Fragment() {
         preferencesConfig.writeAddress(address)
         preferencesConfig.writeCreationTime(System.currentTimeMillis())
         preferencesConfig.writeLoginInStatus(true)
-        Toast.makeText(context, "Profile successfully registered !", Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            context,
+            getString(R.string.registration_profile_created),
+            Toast.LENGTH_SHORT
+        ).show()
         navigateToProfile()
     }
 
