@@ -24,8 +24,8 @@ class SharedPreferencesConfig(
         editor.apply()
     }
 
-    fun readName(): String? {
-        return sharedPreferences.getString(NAME_KEY, "")
+    fun readName(): String {
+        return sharedPreferences.getString(NAME_KEY, "").toString()
     }
 
     fun writeAddress(address: String) {
@@ -34,8 +34,8 @@ class SharedPreferencesConfig(
         editor.apply()
     }
 
-    fun readAddress(): String? {
-        return sharedPreferences.getString(ADDRESS_KEY, "")
+    fun readAddress(): String {
+        return sharedPreferences.getString(ADDRESS_KEY, "").toString()
     }
 
     fun writeAge(age: Int) {

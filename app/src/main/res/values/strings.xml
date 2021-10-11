@@ -17,9 +17,10 @@
     <string name="registration_toolbar_title">Registration Page</string>
     <string name="profile_toolbar_title">Profile Page</string>
     <string name="enter_valid_imput_s">"Enter valid input. \nPossible Error: %s"</string>
-    <string name="profile_name_text">"Name: %s"</string>
-    <string name="profile_address_text">Address: %s</string>
-    <string name="profile_age_text">Age: %d</string>
+    <string name="profile_name_text">"Name :</string>
+    <string name="profile_address_text">Address :</string>
+    <string name="profile_age_text">Age :</string>
+    <string name="profile_created_text">Created :</string>
     <string name="registration_empty_name">Enter your full name</string>
     <string name="registration_empty_address">Enter your Address</string>
     <string name="registration_empty_age">Enter your Age</string>

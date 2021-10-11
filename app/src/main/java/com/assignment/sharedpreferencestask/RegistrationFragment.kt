@@ -11,14 +11,10 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.assignment.sharedpreferencestask.databinding.FragmentRegistrationBinding
-import com.google.android.material.textfield.TextInputEditText
 
 class RegistrationFragment : Fragment() {
 
     private lateinit var binding: FragmentRegistrationBinding
-    private lateinit var nameEditText: TextInputEditText
-    private lateinit var addressEditText: TextInputEditText
-    private lateinit var ageEditText: TextInputEditText
     private lateinit var preferencesConfig: SharedPreferencesConfig
 
     override fun onCreateView(
@@ -36,27 +32,24 @@ class RegistrationFragment : Fragment() {
             navigateToProfile()
         val activity = activity as AppCompatActivity
         activity.supportActionBar?.title = getString(R.string.registration_toolbar_title)
-        nameEditText = binding.registrationNameEditText
-        addressEditText = binding.registrationAddressEditText
-        ageEditText = binding.registrationAgeEditText
         binding.registrationSubmitButton.setOnClickListener {
             onSubmitClick()
         }
-        nameEditText.doAfterTextChanged { text ->
+        binding.registrationNameEditText.doAfterTextChanged { text ->
             binding.registrationNameTil.isErrorEnabled = text!!.isEmpty()
         }
-        addressEditText.doAfterTextChanged { text ->
+        binding.registrationAddressEditText.doAfterTextChanged { text ->
             binding.registrationAddressTil.isErrorEnabled = text!!.isEmpty()
         }
-        ageEditText.doAfterTextChanged { text ->
+        binding.registrationAgeEditText.doAfterTextChanged { text ->
             binding.registrationAgeTil.isErrorEnabled = text!!.isEmpty()
         }
     }
 
     private fun onSubmitClick() {
-        val name = nameEditText.text.toString().trim()
-        val address = addressEditText.text.toString().trim()
-        val age = ageEditText.text.toString().trim()
+        val name = binding.registrationNameEditText.text.toString().trim()
+        val address = binding.registrationAddressEditText.text.toString().trim()
+        val age = binding.registrationAgeEditText.text.toString().trim()
         val nameTil = binding.registrationNameTil
         val addressTil = binding.registrationAddressTil
         val ageTil = binding.registrationAgeTil
