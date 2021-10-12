@@ -24,8 +24,7 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val activity = activity as AppCompatActivity
-        activity.supportActionBar?.title = getString(R.string.profile_toolbar_title)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.profile_toolbar_title)
         preferencesConfig = SharedPreferencesConfig(requireContext())
         if (preferencesConfig.readName().isNotEmpty() && preferencesConfig.readAddress().isNotEmpty()
         ) {
@@ -42,17 +41,14 @@ class ProfileFragment : Fragment() {
             val timeInDays = TimeUnit.DAYS.convert(calculatedProfileAge, TimeUnit.MILLISECONDS)
             val timeInMonths = timeInDays / 30
             val timeInYears = timeInMonths / 12
-            var timeString = ""
-            when {
-                timeInSeconds < 60 -> timeString = "$timeInSeconds seconds ago"
-                timeInMinutes in 1..59 -> timeString =
-                    "$timeInMinutes min ${timeInSeconds - timeInMinutes * 60} sec ago"
-                timeInHours in 1..24 -> timeString =
-                    "$timeInHours hr ${timeInMinutes - timeInHours * 60} min ago"
-                timeInDays in 1..30 -> timeString =
-                    "$timeInDays day ${timeInHours - timeInDays * 24} hr ago"
-                timeInMonths in 1..12 -> timeString = "$timeInMonths month ago"
-                timeInYears >= 1 -> timeString = "$timeInYears yr ago"
+            val timeString = when {
+                timeInSeconds < 60 -> "$timeInSeconds seconds ago"
+                timeInMinutes in 1..59 -> "$timeInMinutes min ${timeInSeconds - timeInMinutes * 60} sec ago"
+                timeInHours in 1..24 -> "$timeInHours hr ${timeInMinutes - timeInHours * 60} min ago"
+                timeInDays in 1..30 -> "$timeInDays day ${timeInHours - timeInDays * 24} hr ago"
+                timeInMonths in 1..12 -> "$timeInMonths month ago"
+                timeInYears >= 1 -> "$timeInYears yr ago"
+                else -> ""
             }
             binding.profileCreationText.text = timeString
         }

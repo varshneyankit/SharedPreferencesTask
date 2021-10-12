@@ -30,8 +30,7 @@ class RegistrationFragment : Fragment() {
         preferencesConfig = SharedPreferencesConfig(requireContext())
         if (preferencesConfig.readLoginInStatus())
             navigateToProfile()
-        val activity = activity as AppCompatActivity
-        activity.supportActionBar?.title = getString(R.string.registration_toolbar_title)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.registration_toolbar_title)
         binding.registrationSubmitButton.setOnClickListener {
             onSubmitClick()
         }
